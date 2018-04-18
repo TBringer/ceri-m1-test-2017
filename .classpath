@@ -22,5 +22,6 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/etudiants/inf/uapv1500963/Téléchargements/jsoup-1.11.3.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
