@@ -26,12 +26,6 @@ public class IGameStateProviderTest {
 		return mockedIGameStateProvider;
 	}
 	
-	@Test
-	public void testSave(){
-		final IGameStateProvider gameSP = getTestInstance();
-		gameSP.save(iGameS);
-	}
-	
 	@Test (expected = IllegalArgumentException.class)
 	public void testGetNull(){
 		final IGameStateProvider gameSP = getTestInstance();
