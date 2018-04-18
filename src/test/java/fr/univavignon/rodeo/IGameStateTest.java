@@ -35,7 +35,7 @@ public class IGameStateTest {
 		gameS.exploreArea();
 	}
 	
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testCatchAnimalNull(){
 		final IGameState gameS = getTestInstance();
 		gameS.catchAnimal(null);
@@ -47,7 +47,7 @@ public class IGameStateTest {
 		gameS.catchAnimal(iAni);
 	}
 	
-	@Test
+	@Test (expected = IllegalArgumentException.class)
 	public void testGetSpecieLevelNull(){
 		final IGameState gameS = getTestInstance();
 		gameS.getSpecieLevel(null);
@@ -56,7 +56,7 @@ public class IGameStateTest {
 	@Test
 	public void testGetSpecieLevel(){
 		final IGameState gameS = getTestInstance();
-		gameS.getSpecieLevel(iSpe).equals(SpecieLevel.NOVICE);
+		assertEquals(gameS.getSpecieLevel(iSpe),SpecieLevel.NOVICE);
 	}
 	
 	@Test
