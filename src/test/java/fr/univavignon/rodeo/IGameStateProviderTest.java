@@ -11,7 +11,7 @@ import org.junit.Test;
 @RunWith(MockitoJUnitRunner.class)
 public class IGameStateProviderTest {
 	
-	//Liste qui contiendra des mocks de IEnvironment
+	//objets utilisés pour tester les fonctions
 	public static IGameState iGameS = IGameStateTest.getTestInstance();
 	public static IGameState newState = IGameStateTest.getTestInstance();
 
