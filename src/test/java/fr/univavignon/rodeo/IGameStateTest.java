@@ -11,58 +11,93 @@ import org.junit.Test;
 @RunWith(MockitoJUnitRunner.class)
 public class IGameStateTest {
 	
-	//Liste qui contiendra des mocks de IEnvironment
-	public static ISpecie iSpe = ISpecieTest.getTestInstance();
-	public static IAnimal iAni = IAnimalTest.getTestInstance();
+	@Mock
+	private static IAnimal animal;
+	
+	@Mock
+	private static ISpecie specie;
 
-	/*Méthode créant un mock de l'interface IGameState
-	 * Ce mock est utilisé dans les méthodes de test
-	 */
-	protected static IGameState getTestInstance(){
-		IGameState mockedIGameState = mock(IGameState.class);
-		doThrow(IllegalStateException.class).when(mockedIGameState).exploreArea();
-		doThrow(IllegalArgumentException.class).when(mockedIGameState).catchAnimal(null);
-		doThrow(IllegalStateException.class).when(mockedIGameState).catchAnimal(iAni);
-		doThrow(IllegalArgumentException.class).when(mockedIGameState).getSpecieLevel(null);
-		when(mockedIGameState.getProgression()).thenReturn(50);
-		when(mockedIGameState.getSpecieLevel(isA(ISpecie.class))).thenReturn(SpecieLevel.NOVICE);
-		return mockedIGameState;
+	@Mock
+	private IGameState gameState;
+	
+	private static SpecieLevel noviceLevel, wranglerLevel, championLevel, masterLevel;
+	
+	public static IGameState getMock() {
+		IGameState gameState = mock(IGameState.class);
+		when(gameState.getSpecieLevel(specie)).thenReturn(masterLevel);
+		when(gameState.getProgression()).thenReturn(0);
+		doThrow(IllegalStateException.class).when(gameState).exploreArea();
+		doThrow(IllegalArgumentException.class).when(gameState).catchAnimal(null);
+		doThrow(IllegalStateException.class).when(gameState).catchAnimal(animal);
+		doThrow(IllegalArgumentException.class).when(gameState).getSpecieLevel(null);
+		return gameState;
+	}
+
+	@Before
+	public void init() {
+		noviceLevel = SpecieLevel.NOVICE;
+		wranglerLevel = SpecieLevel.WRANGLER;
+		championLevel = SpecieLevel.CHAMPION;
+		masterLevel = SpecieLevel.MASTER;
+		
+		animal = IAnimalTest.getMock();
+		specie = ISpecieTest.getMock();
+		gameState = getMock();		
 	}
 	
-	@Test(expected=IllegalStateException.class)
-	public void testExploreArea(){
-		final IGameState gameS = getTestInstance();
-		gameS.exploreArea();
+	@Test (expected=IllegalStateException.class)
+	public void testExploreArea() {
+		gameState.exploreArea();
 	}
 	
-	@Test (expected = IllegalArgumentException.class)
-	public void testCatchAnimalNull(){
-		final IGameState gameS = getTestInstance();
-		gameS.catchAnimal(null);
+	@Test (expected=IllegalStateException.class)
+	public void testCatchAnimalNotExist() {
+		gameState.catchAnimal(animal);
 	}
 	
-	@Test (expected = IllegalStateException.class)
-	public void testCatchAnimalNotFound(){
-		final IGameState gameS = getTestInstance();
-		gameS.catchAnimal(iAni);
-	}
-	
-	@Test (expected = IllegalArgumentException.class)
-	public void testGetSpecieLevelNull(){
-		final IGameState gameS = getTestInstance();
-		gameS.getSpecieLevel(null);
+	@Test (expected=IllegalArgumentException.class)
+	public void testCatchAnimalIsNull() {
+		gameState.catchAnimal(null);
 	}
 	
 	@Test
-	public void testGetSpecieLevel(){
-		final IGameState gameS = getTestInstance();
-		assertEquals(gameS.getSpecieLevel(iSpe),SpecieLevel.NOVICE);
+	public void testGetSpecieLevel() {
+		assertEquals(masterLevel, gameState.getSpecieLevel(specie));
+		assertEquals(600, gameState.getSpecieLevel(specie).getRequiredXP());
+	}
+	
+	@Test (expected=IllegalArgumentException.class)
+	public void testGetSpecieLevelIsNull() {
+		gameState.getSpecieLevel(null);
 	}
 	
 	@Test
-	public void testGetProgression(){
-		final IGameState gameS = getTestInstance();
-		assertEquals(gameS.getProgression(), 50);
+	public void testGetSpecieNoviceLevel() {
+		when(gameState.getSpecieLevel(specie)).thenReturn(noviceLevel);
+		assertEquals(noviceLevel, gameState.getSpecieLevel(specie));
+	}
+	
+	@Test
+	public void testGetSpecieWranglerLevel() {
+		when(gameState.getSpecieLevel(specie)).thenReturn(wranglerLevel);
+		assertEquals(wranglerLevel, gameState.getSpecieLevel(specie));
+	}
+	
+	@Test
+	public void testGetSpecieChampionLevel() {
+		when(gameState.getSpecieLevel(specie)).thenReturn(championLevel);
+		assertEquals(championLevel, gameState.getSpecieLevel(specie));
+	}
+	
+	@Test
+	public void testGetSpecieMasterLevel() {
+		when(gameState.getSpecieLevel(specie)).thenReturn(masterLevel);
+		assertEquals(masterLevel, gameState.getSpecieLevel(specie));
+	}
+	
+	@Test
+	public void testGetProgression() {
+		assertEquals(0, gameState.getProgression());
 	}
 	
 }
