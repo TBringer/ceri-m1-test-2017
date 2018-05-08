@@ -57,11 +57,11 @@ public class GameState extends NamedObject implements IGameState {
 				envProv.getAvailableEnvironments().add(currentEnv.getName());
 			}
 			else {
-				throw new IllegalStateException ("il n'y a plus d'environnements à explorer.");
+				throw new IllegalStateException ("il n'y a plus d'environnements a explorer.");
 			}
 		}
 		else {
-			throw new IllegalStateException("tous les animaux n'ont pas été attrapés.");
+			throw new IllegalStateException("tous les animaux n'ont pas ete attrapes.");
 		}
 			
 				
