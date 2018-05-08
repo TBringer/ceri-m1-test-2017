@@ -1,17 +1,14 @@
-package fr.univavigno.rodeo.imp;
+package fr.univavignon.rodeo.imp;
 
 import java.util.List;
 
 import fr.univavignon.rodeo.api.*;
 
-public class Environment implements IEnvironment {
+public class Environment extends NamedObject implements IEnvironment {
 
-	private String name;
 	private int numAreas;
 	private List<ISpecie> listSpecies;
-	
-	public Environment() {}
-	
+		
 	/**
 	 * 
 	 * @param name
@@ -20,13 +17,9 @@ public class Environment implements IEnvironment {
 	 */
 	public Environment(String name, int areas, List<ISpecie> species)
 	{
-		this.name = name;
-		this.numAreas = areas;
-		this.listSpecies = species;
-	}
-	@Override
-	public String getName() {
-		return this.name;
+		super(name);
+		numAreas = areas;
+		listSpecies = species;
 	}
 
 	@Override

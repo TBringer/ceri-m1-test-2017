@@ -1,34 +1,25 @@
-package fr.univavigno.rodeo.imp;
+package fr.univavignon.rodeo.imp;
 
 import java.util.List;
 
 import fr.univavignon.rodeo.api.*;
 
-public class Specie implements ISpecie {
+public class Specie extends NamedObject implements ISpecie {
 	 
-	private String name;
 	private int area;
 	private List<IAnimal> listAnimals;
-	
-	/** **/
-	public Specie() {}
-	
+		
 	/**
 	 * 
 	 * @param name
 	 * @param area
 	 * @param list
 	 */
-	public Specie(String name, int area, List<IAnimal> list)
+	public Specie(String name, int a, List<IAnimal> list)
 	{
-		this.name= name;
-		this.area = area;
-		this.listAnimals = list;
-	}
-	
-	@Override
-	public String getName() {
-		return this.name;
+		super(name);
+		area = a;
+		listAnimals = list;
 	}
 
 	@Override

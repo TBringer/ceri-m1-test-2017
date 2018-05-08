@@ -1,8 +1,6 @@
-package fr.univavigno.rodeo.imp;
+package fr.univavignon.rodeo.imp;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,25 +13,15 @@ import fr.univavignon.rodeo.api.*;
 
 public class EnvironmentProvider implements IEnvironmentProvider {
 
-	private List<String> availableEnvironments;
+	private List<IEnvironment> availableEnvironments;
 	private Document docAreas, docSpecies, docAnimals;
+	private List<IEnvironment> environments;
 	
 	public EnvironmentProvider() 
 	{
-		
-	}
-	@Override
-	public List<String> getAvailableEnvironments() {
-		return null;
-	}
-
-	@Override
-	public IEnvironment getEnvironment(String name)
-			throws IllegalArgumentException {
-		
-	
-	    try {
-	
+		try {
+			
+			//web crawler, retrieves data from wiki
 	        // need http protocol
 	        docAreas = Jsoup.connect("http://rodeo-stampede.wikia.com/wiki/Zones_and_Animals").get();
 	        
@@ -54,7 +42,7 @@ public class EnvironmentProvider implements IEnvironmentProvider {
                 			int idArea = Integer.parseInt(tdArea.text().substring(length -1, length));
                 			List<IAnimal> listAnimals = new ArrayList<IAnimal>();
                 			docAnimals = Jsoup.connect("http://rodeo-stampede.wikia.com/wiki/Species:_"+tdSpecie.text()).get();
-                			for(Element tableAnimal : docSpecies.select("#mw-content-text > table:nth-child(4)")){
+                			for(Element tableAnimal : docAnimals.select("#mw-content-text > table:nth-child(4)")){
     	                		Elements rowsAnimals = tableAnimal.select("tr");
     	                		for(int j=1; j>=rowsAnimals.size(); j++){
     	                			Element rowAnimal = rowsAnimals.get(i);
@@ -80,12 +68,42 @@ public class EnvironmentProvider implements IEnvironmentProvider {
     	                Elements trNumArea = docSpecies.select("#mw-content-text > table:nth-child(15) > tbody > tr:nth-child(2)");
     	                numArea = trNumArea.size();
     	                IEnvironment environment = new Environment(td.text(), numArea, listSpecies);
+    	                this.environments.add(environment);
                 	}
 	            }
 	        }
 	    } catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	
+	@SuppressWarnings("null")
+	@Override
+	public List<String> getAvailableEnvironments() {
+		List<String> availEnvName = null;
+		
+		for(IEnvironment envi : availableEnvironments)
+			availEnvName.add(envi.getName());
+		
+		return availEnvName;
+	}
+
+	
+	public List<IEnvironment> getEnvironments() {
+		return this.environments;
+	}
+	
+	@Override
+	public IEnvironment getEnvironment(String name)throws IllegalArgumentException {
+		
+		if(name == null)
+			throw new IllegalArgumentException("null argument in getEnvironment()");
+		
+		for(IEnvironment envi : availableEnvironments)
+			if(envi.getName().equals(name))
+				return envi;
+		
 		return null;
 	}
 
