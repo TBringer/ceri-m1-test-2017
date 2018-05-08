@@ -6,6 +6,7 @@ import static org.mockito.Mockito.*;
 
 import org.junit.runner.RunWith;
 import org.mockito.runners.*;
+import org.mockito.Mock;
 import org.junit.Test;
 
 @RunWith(MockitoJUnitRunner.class)
