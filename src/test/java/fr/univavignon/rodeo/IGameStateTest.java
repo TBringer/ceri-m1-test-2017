@@ -21,9 +21,9 @@ public class IGameStateTest {
 	protected static IGameState getTestInstance(){
 		IGameState mockedIGameState = mock(IGameState.class);
 		doThrow(IllegalStateException.class).when(mockedIGameState).exploreArea();
-		doThrow(IllegalArgumentException.class).when(mockedIGameState).catchAnimal(isA(IAnimal.class));
+		doThrow(IllegalArgumentException.class).when(mockedIGameState).catchAnimal(null);
 		doThrow(IllegalStateException.class).when(mockedIGameState).catchAnimal(iAni);
-		doThrow(IllegalArgumentException.class).when(mockedIGameState).getSpecieLevel(isA(ISpecie.class));
+		doThrow(IllegalArgumentException.class).when(mockedIGameState).getSpecieLevel(null);
 		when(mockedIGameState.getProgression()).thenReturn(50);
 		when(mockedIGameState.getSpecieLevel(isA(ISpecie.class))).thenReturn(SpecieLevel.NOVICE);
 		return mockedIGameState;
