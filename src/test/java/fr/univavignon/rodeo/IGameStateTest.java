@@ -24,7 +24,7 @@ public class IGameStateTest {
 	
 	private static SpecieLevel noviceLevel, wranglerLevel, championLevel, masterLevel;
 	
-	public static IGameState getMock() {
+	public static IGameState getTestInstance() {
 		IGameState gameState = mock(IGameState.class);
 		when(gameState.getSpecieLevel(specie)).thenReturn(masterLevel);
 		when(gameState.getProgression()).thenReturn(0);
@@ -42,9 +42,9 @@ public class IGameStateTest {
 		championLevel = SpecieLevel.CHAMPION;
 		masterLevel = SpecieLevel.MASTER;
 		
-		animal = IAnimalTest.getMock();
-		specie = ISpecieTest.getMock();
-		gameState = getMock();		
+		animal = IAnimalTest.getTestInstance();
+		specie = ISpecieTest.getTestInstance();
+		gameState = getTestInstance();		
 	}
 	
 	@Test (expected=IllegalStateException.class)
