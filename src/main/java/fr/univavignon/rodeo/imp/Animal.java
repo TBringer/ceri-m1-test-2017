@@ -1,6 +1,6 @@
 package fr.univavignon.rodeo.imp;
 
-import fr.univavignon.rodeo.api.*;
+import fr.univavignon.rodeo.api.IAnimal;
 
 public class Animal extends NamedObject implements IAnimal {
 	

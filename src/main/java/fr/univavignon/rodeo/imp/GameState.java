@@ -3,7 +3,11 @@ package fr.univavignon.rodeo.imp;
 import java.util.HashMap;
 import java.util.Map;
 
-import fr.univavignon.rodeo.api.*;
+import fr.univavignon.rodeo.api.IAnimal;
+import fr.univavignon.rodeo.api.IEnvironment;
+import fr.univavignon.rodeo.api.IGameState;
+import fr.univavignon.rodeo.api.ISpecie;
+import fr.univavignon.rodeo.api.SpecieLevel;
 
 public class GameState extends NamedObject implements IGameState {
 
@@ -152,5 +156,10 @@ public class GameState extends NamedObject implements IGameState {
 	
 	public void makeProgress(){
 		this.progress = (int) Math.round((countCaughtAnimals / caughtAnimals.size())*100);
+	}
+	
+	//used when u want to use an old gamestate again from savings
+	public void setProgress(int progress){
+		this.progress = progress;
 	}
 }

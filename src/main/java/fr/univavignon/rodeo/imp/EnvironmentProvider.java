@@ -1,15 +1,18 @@
 package fr.univavignon.rodeo.imp;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import fr.univavignon.rodeo.api.*;
+import fr.univavignon.rodeo.api.IAnimal;
+import fr.univavignon.rodeo.api.IEnvironment;
+import fr.univavignon.rodeo.api.IEnvironmentProvider;
+import fr.univavignon.rodeo.api.ISpecie;
 
 public class EnvironmentProvider implements IEnvironmentProvider {
 

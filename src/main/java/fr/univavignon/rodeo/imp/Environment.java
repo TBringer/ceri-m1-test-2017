@@ -2,7 +2,8 @@ package fr.univavignon.rodeo.imp;
 
 import java.util.List;
 
-import fr.univavignon.rodeo.api.*;
+import fr.univavignon.rodeo.api.IEnvironment;
+import fr.univavignon.rodeo.api.ISpecie;
 
 public class Environment extends NamedObject implements IEnvironment {
 

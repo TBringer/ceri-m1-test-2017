@@ -2,7 +2,8 @@ package fr.univavignon.rodeo.imp;
 
 import java.util.List;
 
-import fr.univavignon.rodeo.api.*;
+import fr.univavignon.rodeo.api.IAnimal;
+import fr.univavignon.rodeo.api.ISpecie;
 
 public class Specie extends NamedObject implements ISpecie {
 	 
@@ -31,5 +32,5 @@ public class Specie extends NamedObject implements ISpecie {
 	public List<IAnimal> getAnimals() {
 		return this.listAnimals;
 	}
-
+	
 }

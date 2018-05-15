@@ -26,10 +26,10 @@ public class GameStateProvider implements IGameStateProvider {
 			return;
 		}
 		
-		String savePath = FILEPATH+gameState.getName()+".txt";
+		String fileName = FILEPATH+gameState.getName()+".txt";
 		
 		try{
-			PrintWriter pw = new PrintWriter(savePath, "UTF-8");
+			PrintWriter pw = new PrintWriter(fileName, "UTF-8");
 			pw.print(gameState.getProgression());
 			pw.close();
 		}
@@ -43,8 +43,37 @@ public class GameStateProvider implements IGameStateProvider {
 
 	@Override
 	public IGameState get(String name) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		if (name == null)
+			throw new IllegalArgumentException("null argument in function get()");
+		
+		GameState gameState = null;
+		
+		String fileName = FILEPATH + name + ".txt";
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+			gameState = new GameState(name);
+		    StringBuilder sb = new StringBuilder();
+		    String line = br.readLine();
+
+		    while (line != null) {
+		        sb.append(line);
+		        line = br.readLine();
+		    }
+		    String lines = sb.toString();
+		    
+		    int progression = Integer.parseInt(lines);
+		    gameState.setProgress(progression);
+		    
+		} 
+		catch (FileNotFoundException e) {
+			e.printStackTrace();
+			
+		} 
+		catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return gameState;
 	}
 
 }

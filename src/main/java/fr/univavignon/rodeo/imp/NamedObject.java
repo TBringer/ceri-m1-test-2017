@@ -1,6 +1,6 @@
 package fr.univavignon.rodeo.imp;
 
-import fr.univavignon.rodeo.api.*;
+import fr.univavignon.rodeo.api.INamedObject;
 
 public class NamedObject implements INamedObject {
 
