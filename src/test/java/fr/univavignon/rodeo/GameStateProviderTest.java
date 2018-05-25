@@ -13,12 +13,12 @@ public class GameStateProviderTest extends IGameStateProviderTest {
 	@Test
 	public void testGetNull(){
 		final IGameStateProvider gameSP = new GameStateProvider();
-		assertEquals(gameSP.get(null), null);
+		assertEquals(gameSP.get("test"), null);
 	}
 	
 	@Test 
 	public void testGet(){
 		final IGameStateProvider gameSP = new GameStateProvider();
-		assertEquals(gameSP.get(null), null);
+		assertEquals(gameSP.get("test"), null);
 	}
 }
